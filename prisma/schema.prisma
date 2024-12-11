@@ -1,0 +1,138 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Recipe {
+    id              Int             @id @default(autoincrement())
+    userId          Int
+    user            User            @relation(fields: [userId], references: [id])
+    title           String?
+    description     String?
+    imageUrl        String?
+    preparationTime Int? // in minutes
+    cookingTime     Int? // in minutes
+    servings        Int?
+    steps           Step[] // ordered preparation steps
+    sections        Section[]
+    reviews         Review[]
+    comments        Comment[]
+    tags            RecipeTags[]
+    createdAt       DateTime        @default(now())
+    UserLikes       UserLikes[]
+    UserFavorites   UserFavorites[]
+}
+
+model Step {
+    id          Int      @id @default(autoincrement())
+    recipeId    Int
+    recipe      Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+    orderNumber Int // to maintain step sequence
+    instruction String
+    createdAt   DateTime @default(now())
+}
+
+model Section {
+    id          Int          @id @default(autoincrement())
+    name        String
+    recipeId    Int
+    recipe      Recipe       @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+    ingredients Ingredient[]
+    createdAt   DateTime     @default(now())
+}
+
+model Comment {
+    id        Int      @id @default(autoincrement())
+    text      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    recipeId  Int
+    recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+    userId    Int
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+    id         Int      @id @default(autoincrement())
+    recipeId   Int
+    recipe     Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+    userId     Int
+    user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    reviewText String
+    imageUrl   String?
+    rating     Float
+    createdAt  DateTime @default(now())
+}
+
+model Ingredient {
+    id        Int      @id @default(autoincrement())
+    sectionId Int
+    section   Section  @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+    name      String
+    quantity  Float?
+    unit      String?
+    createdAt DateTime @default(now())
+}
+
+model User {
+    id             Int             @id @default(autoincrement())
+    username       String          @unique
+    email          String          @unique
+    profilePicture String?
+    password       String
+    comments       Comment[]
+    recipes        Recipe[]
+    likes          UserLikes[]
+    favorites      UserFavorites[]
+    following      UserFollows[]   @relation("UserFollowing")
+    followers      UserFollows[]   @relation("UserFollowers")
+    bio            String?
+    createdAt      DateTime        @default(now())
+    Review         Review[]
+}
+
+model UserLikes {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    recipeId  Int
+    recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+}
+
+model UserFavorites {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    recipeId  Int
+    recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+}
+
+model UserFollows {
+    id          Int      @id @default(autoincrement())
+    followerId  Int
+    follower    User     @relation("UserFollowing", fields: [followerId], references: [id], onDelete: Cascade)
+    followingId Int
+    following   User     @relation("UserFollowers", fields: [followingId], references: [id], onDelete: Cascade)
+    createdAt   DateTime @default(now())
+}
+
+model Tag {
+    id      Int          @id @default(autoincrement())
+    name    String       @unique
+    recipes RecipeTags[]
+}
+
+model RecipeTags {
+    id        Int      @id @default(autoincrement())
+    recipeId  Int
+    recipe    Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+    tagId     Int
+    tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+}
