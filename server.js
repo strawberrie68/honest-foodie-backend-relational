@@ -6,6 +6,8 @@ const prisma = new PrismaClient();
 const app = express();
 
 const PORT = process.env.PORT || 3003;
+
+const recipeController = require("./src/controllers/recipe.controller.js");
 const userController = require("./src/controllers/user.controller.js");
 const errorHandler = require("./src/middleware/error.middleware.js");
 
@@ -15,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.use("/api/recipes", recipeController);
 app.use("/api/users", userController);
 
 // Global error handler
