@@ -78,6 +78,11 @@ async function main() {
       { name: "Dessert" },
       { name: "Quick Meal" },
       { name: "Healthy" },
+      { name: "Quick" },
+      { name: "Drinks" },
+      { name: "Seasonal" },
+      { name: "Winter" },
+      { name: "Salad" },
     ],
   });
 
@@ -207,6 +212,165 @@ async function main() {
             "Cook for additional 2-3 minutes until everything is well coated and heated through.",
         },
         { instruction: "Serve hot over rice or noodles." },
+      ],
+    },
+    {
+      userId: johnDoe.id,
+      title: "Egg Toast",
+      description: "A quick and healthy breakfast with avocado on toast.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1617054240991-b0ffce6600da?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZjYWRvJTIwdG9hc3R8ZW58MHx8MHx8fDA%3D",
+      preparationTime: 5,
+      cookingTime: 2,
+      servings: 1,
+      tags: ["Breakfast", "Quick", "Healthy"],
+      sections: [
+        {
+          name: "Ingredients",
+          ingredients: [
+            { name: "Bread", quantity: 1, unit: "slice" },
+            { name: "Avocado", quantity: 0.5, unit: "whole" },
+            { name: "Salt", quantity: 1, unit: "pinch" },
+            { name: "Pepper", quantity: 1, unit: "pinch" },
+            { name: "Red chili flakes", quantity: 1, unit: "pinch" },
+            { name: "Olive oil", quantity: 1, unit: "tsp" },
+          ],
+        },
+      ],
+      steps: [
+        {
+          instruction: "Toast the bread until golden and crisp.",
+        },
+        {
+          instruction:
+            "Mash the avocado in a bowl and season with salt, pepper, and chili flakes.",
+        },
+        {
+          instruction: "Spread the mashed avocado onto the toast.",
+        },
+        {
+          instruction: "Drizzle with olive oil and serve immediately.",
+        },
+      ],
+    },
+    {
+      userId: janeDoe.id,
+      title: "Hot Chocolate",
+      description: "A cozy and rich seasonal drink.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG90JTIwY2hvY29sYXRlfGVufDB8fDB8fHww",
+      preparationTime: 5,
+      cookingTime: 10,
+      servings: 2,
+      tags: ["Drinks", "Seasonal", "Winter"],
+      sections: [
+        {
+          name: "Ingredients",
+          ingredients: [
+            { name: "Milk", quantity: 2, unit: "cups" },
+            { name: "Cocoa powder", quantity: 2, unit: "tbsp" },
+            { name: "Sugar", quantity: 2, unit: "tbsp" },
+            { name: "Dark chocolate", quantity: 0.5, unit: "cup" },
+            { name: "Whipped cream", quantity: 1, unit: "optional" },
+            { name: "Marshmallows", quantity: 1, unit: "optional" },
+          ],
+        },
+      ],
+      steps: [
+        {
+          instruction:
+            "In a saucepan, combine milk, cocoa powder, and sugar over medium heat.",
+        },
+        {
+          instruction: "Whisk constantly until cocoa powder is dissolved.",
+        },
+        {
+          instruction: "Add dark chocolate and stir until melted and smooth.",
+        },
+        {
+          instruction:
+            "Pour into mugs and top with whipped cream or marshmallows if desired.",
+        },
+      ],
+    },
+    {
+      userId: johnDoe.id,
+      title: "Apple Cider",
+      description: "Warm apple cider with seasonal spices.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1575549592564-4d50aa43b3af?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGUlMjBjaWRlcnxlbnwwfHwwfHx8MA%3D%3D",
+      preparationTime: 10,
+      cookingTime: 15,
+      servings: 4,
+      tags: ["Drinks", "Seasonal", "Fall"],
+      sections: [
+        {
+          name: "Ingredients",
+          ingredients: [
+            { name: "Apple cider", quantity: 4, unit: "cups" },
+            { name: "Cinnamon stick", quantity: 1, unit: "whole" },
+            { name: "Cloves", quantity: 5, unit: "whole" },
+            { name: "Orange peel", quantity: 1, unit: "strip" },
+            { name: "Star anise", quantity: 2, unit: "whole" },
+          ],
+        },
+      ],
+      steps: [
+        {
+          instruction: "Combine all ingredients in a large saucepan.",
+        },
+        {
+          instruction: "Bring to a simmer over medium heat.",
+        },
+        {
+          instruction:
+            "Reduce heat and simmer for 10 minutes to infuse flavors.",
+        },
+        {
+          instruction: "Strain into mugs and serve warm.",
+        },
+      ],
+    },
+    {
+      userId: janeDoe.id,
+      title: "Greek Salad",
+      description: "A refreshing Mediterranean salad.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1570197571499-166b36435e9f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2FsYWR8ZW58MHx8MHx8fDA%3D",
+      preparationTime: 10,
+      cookingTime: 0,
+      servings: 4,
+      tags: ["Salad", "Healthy", "Vegetarian"],
+      sections: [
+        {
+          name: "Ingredients",
+          ingredients: [
+            { name: "Cucumber", quantity: 1, unit: "whole" },
+            { name: "Tomatoes", quantity: 2, unit: "whole" },
+            { name: "Red onion", quantity: 0.5, unit: "whole" },
+            { name: "Feta cheese", quantity: 0.5, unit: "cup" },
+            { name: "Kalamata olives", quantity: 0.25, unit: "cup" },
+            { name: "Olive oil", quantity: 2, unit: "tbsp" },
+            { name: "Lemon juice", quantity: 1, unit: "tbsp" },
+            { name: "Dried oregano", quantity: 1, unit: "tsp" },
+          ],
+        },
+      ],
+      steps: [
+        {
+          instruction:
+            "Chop cucumber, tomatoes, and red onion into bite-sized pieces.",
+        },
+        {
+          instruction:
+            "Combine vegetables, feta cheese, and olives in a large bowl.",
+        },
+        {
+          instruction: "Drizzle with olive oil and lemon juice.",
+        },
+        {
+          instruction: "Sprinkle with oregano and toss to combine.",
+        },
       ],
     },
   ];
