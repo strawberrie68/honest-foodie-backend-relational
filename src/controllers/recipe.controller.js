@@ -76,7 +76,7 @@ router.get("/search", async (req, res, next) => {
 // Create a new recipe
 router.post("/", async (req, res, next) => {
   try {
-    const recipe = await recipeService.createRecipe(req.body);
+    const recipe = await recipeService.createRecipe(req.body.recipeData);
     res.status(201).json(recipe);
   } catch (error) {
     next(error);

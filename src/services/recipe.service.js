@@ -9,11 +9,15 @@ class RecipeService {
     // Validate recipe data including new fields
     this.validateRecipeData(data);
 
-    // Separate steps from main recipe data
-    const { steps, ...recipeData } = data;
+    // Separate steps and sections from main recipe data
+    const { steps, sections, ...recipeData } = data;
 
-    // Create recipe with steps using the new method
-    return this.recipeRepository.createRecipeWithSteps(recipeData, steps || []);
+    // Create recipe with steps and sections using the new method
+    return this.recipeRepository.createRecipeWithSteps(
+      recipeData,
+      steps || [],
+      sections || []
+    );
   }
 
   async getRecipeById(id) {
@@ -171,6 +175,7 @@ class RecipeService {
   }
 
   validateRecipeData(data) {
+    console.log("validate data sent: ", data);
     if (!data.description) {
       throw new Error("Recipe description is required");
     }
@@ -217,6 +222,62 @@ class RecipeService {
         ) {
           throw new Error(`Step ${index + 1} must have a valid instruction`);
         }
+      });
+    }
+
+    // Validate sections if provided
+    if (data.sections) {
+      if (!Array.isArray(data.sections)) {
+        throw new Error("Sections must be an array");
+      }
+
+      data.sections.forEach((section, sectionIndex) => {
+        if (
+          !section.name ||
+          typeof section.name !== "string" ||
+          section.name.trim().length === 0
+        ) {
+          throw new Error(`Section ${sectionIndex + 1} must have a valid name`);
+        }
+
+        if (!Array.isArray(section.ingredients)) {
+          throw new Error(
+            `Section ${sectionIndex + 1} must have an ingredients array`
+          );
+        }
+
+        section.ingredients.forEach((ingredient, ingredientIndex) => {
+          if (
+            !ingredient.ingredient ||
+            typeof ingredient.ingredient !== "string" ||
+            ingredient.ingredient.trim().length === 0
+          ) {
+            throw new Error(
+              `Ingredient ${ingredientIndex + 1} in section ${
+                sectionIndex + 1
+              } must have a valid name`
+            );
+          }
+
+          if (
+            ingredient.amount !== undefined &&
+            (isNaN(ingredient.amount) || ingredient.amount <= 0)
+          ) {
+            throw new Error(
+              `Ingredient ${ingredientIndex + 1} in section ${
+                sectionIndex + 1
+              } must have a valid amount`
+            );
+          }
+
+          if (ingredient.unit && typeof ingredient.unit !== "string") {
+            throw new Error(
+              `Ingredient ${ingredientIndex + 1} in section ${
+                sectionIndex + 1
+              } must have a valid unit`
+            );
+          }
+        });
       });
     }
   }

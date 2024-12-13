@@ -62,6 +62,8 @@ const ingredientCategories = {
     "zucchini",
     "chicken",
   ],
+  Breaky: ["egg", "bacon", "toast", "muffin"],
+  Drinks: ["drink"],
 };
 
 module.exports = ingredientCategories;
