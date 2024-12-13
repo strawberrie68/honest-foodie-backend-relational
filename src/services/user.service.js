@@ -198,6 +198,39 @@ class UserService {
     const following = await UserRepository.getFollowing(userId);
     return following.map((f) => f.following);
   }
+
+  // Toggle favorite recipe
+  async toggleFavorite(userId, recipeId) {
+    // Validate inputs
+    if (!userId || !recipeId) {
+      throw new Error("User ID and Recipe ID are required");
+    }
+
+    // Convert to integers if they're strings
+    const userIdInt = parseInt(userId);
+    const recipeIdInt = parseInt(recipeId);
+
+    if (isNaN(userIdInt) || isNaN(recipeIdInt)) {
+      throw new Error("Invalid User ID or Recipe ID");
+    }
+
+    return UserRepository.toggleFavorite(userIdInt, recipeIdInt);
+  }
+
+  // Get user's favorite recipes
+  async getUserFavorites(userId) {
+    if (!userId) {
+      throw new Error("User ID is required");
+    }
+
+    const userIdInt = parseInt(userId);
+    if (isNaN(userIdInt)) {
+      throw new Error("Invalid User ID");
+    }
+
+    const favorites = await UserRepository.getFavorites(userIdInt);
+    return favorites.map((favorite) => favorite.recipe);
+  }
 }
 
 module.exports = new UserService();

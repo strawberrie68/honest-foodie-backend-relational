@@ -81,82 +81,13 @@ class RecipeRepository extends BaseRepository {
       delete whereConditions.OR;
     }
 
-    // Handle sorting by rating
-    const orderBy =
-      sortBy === "rating"
-        ? {
-            reviews: {
-              _avg: {
-                rating: sortOrder,
-              },
-            },
-          }
-        : { [sortBy]: sortOrder };
-
-    // Execute search query with pagination
-    const [recipes, total] = await Promise.all([
-      prisma.recipe.findMany({
-        where: whereConditions,
-        include: {
-          sections: {
-            include: {
-              ingredients: true,
-            },
-          },
-          steps: {
-            orderBy: {
-              orderNumber: "asc",
-            },
-          },
-          tags: {
-            include: {
-              tag: true,
-            },
-          },
-          reviews: {
-            select: {
-              rating: true,
-            },
-          },
-          _count: {
-            select: {
-              reviews: true,
-              comments: true,
-            },
-          },
-        },
-        orderBy: orderBy,
-        skip,
-        take: limit,
-      }),
-      prisma.recipe.count({
-        where: whereConditions,
-      }),
-    ]);
-
-    // Calculate average rating for each recipe
-    const recipesWithAvgRating = recipes.map((recipe) => {
-      const avgRating =
-        recipe.reviews.length > 0
-          ? recipe.reviews.reduce((sum, review) => sum + review.rating, 0) /
-            recipe.reviews.length
-          : 0;
-      return {
-        ...recipe,
-        avgRating,
-      };
-    });
-
-    return {
-      recipes: recipesWithAvgRating,
-      pagination: {
-        total,
-        page,
-        limit,
-        totalPages: Math.ceil(total / limit),
-        hasMore: page * limit < total,
-      },
-    };
+    return await this.performRecipeSearch(
+      whereConditions,
+      page,
+      limit,
+      sortBy,
+      sortOrder
+    );
   }
 
   async searchRecipesByQuery({
@@ -245,68 +176,48 @@ class RecipeRepository extends BaseRepository {
   async performRecipeSearch(whereConditions, page, limit, sortBy, sortOrder) {
     const skip = (page - 1) * limit;
 
-    // Handle sorting by rating
-    const orderBy =
-      sortBy === "rating"
-        ? {
-            reviews: {
-              _avg: {
-                rating: sortOrder,
-              },
-            },
-          }
-        : { [sortBy]: sortOrder };
-
-    // Execute search query with pagination
-    const [recipes, total] = await Promise.all([
-      prisma.recipe.findMany({
-        where: whereConditions,
-        include: {
-          sections: {
-            include: {
-              ingredients: true,
-            },
-          },
-          steps: {
-            orderBy: {
-              orderNumber: "asc",
-            },
-          },
-          user: {
-            select: {
-              id: true,
-              username: true,
-              profilePicture: true,
-            },
-          },
-          tags: {
-            include: {
-              tag: true,
-            },
-          },
-          reviews: {
-            select: {
-              rating: true,
-            },
-          },
-          _count: {
-            select: {
-              reviews: true,
-              comments: true,
-            },
+    // First, get recipes with their average ratings
+    const recipesWithRatings = await prisma.recipe.findMany({
+      where: whereConditions,
+      include: {
+        sections: {
+          include: {
+            ingredients: true,
           },
         },
-        orderBy: orderBy,
-        skip,
-        take: limit,
-      }),
-      prisma.recipe.count({
-        where: whereConditions,
-      }),
-    ]);
+        steps: {
+          orderBy: {
+            orderNumber: "asc",
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            username: true,
+            profilePicture: true,
+          },
+        },
+        tags: {
+          include: {
+            tag: true,
+          },
+        },
+        reviews: {
+          select: {
+            rating: true,
+          },
+        },
+        _count: {
+          select: {
+            reviews: true,
+            comments: true,
+          },
+        },
+      },
+    });
 
-    // Calculate average rating for each recipe
-    const recipesWithAvgRating = recipes.map((recipe) => {
+    // Calculate average ratings and sort
+    const recipesWithAvgRating = recipesWithRatings.map((recipe) => {
       const avgRating =
         recipe.reviews.length > 0
           ? recipe.reviews.reduce((sum, review) => sum + review.rating, 0) /
@@ -318,8 +229,30 @@ class RecipeRepository extends BaseRepository {
       };
     });
 
+    // Sort the results
+    if (sortBy === "rating") {
+      recipesWithAvgRating.sort((a, b) => {
+        return sortOrder === "desc"
+          ? b.avgRating - a.avgRating
+          : a.avgRating - b.avgRating;
+      });
+    } else {
+      recipesWithAvgRating.sort((a, b) => {
+        const valueA = a[sortBy];
+        const valueB = b[sortBy];
+        if (sortOrder === "desc") {
+          return valueA < valueB ? 1 : -1;
+        }
+        return valueA > valueB ? 1 : -1;
+      });
+    }
+
+    // Apply pagination
+    const paginatedRecipes = recipesWithAvgRating.slice(skip, skip + limit);
+    const total = recipesWithAvgRating.length;
+
     return {
-      recipes: recipesWithAvgRating,
+      recipes: paginatedRecipes,
       pagination: {
         total,
         page,
@@ -375,16 +308,55 @@ class RecipeRepository extends BaseRepository {
     });
   }
 
-  async createRecipeWithSteps(recipeData, steps) {
+  async createRecipeWithSteps(recipeData, steps, sections) {
     return prisma.$transaction(async (prisma) => {
+      // First, create or connect tags
+      const tagConnections = [];
+      if (recipeData.tags && Array.isArray(recipeData.tags)) {
+        for (const tagName of recipeData.tags) {
+          // Create or find the tag
+          const tag = await prisma.tag.upsert({
+            where: { name: tagName },
+            update: {},
+            create: { name: tagName },
+          });
+          tagConnections.push({ tagId: tag.id });
+        }
+      }
+
+      // Remove tags from recipeData since we're handling them separately
+      const { tags, user, ...recipeDataWithoutTags } = recipeData;
+
+      // Get userId from the user field
+      const userId = Number(user);
+      if (isNaN(userId)) {
+        throw new Error("Invalid user ID provided");
+      }
+
       const recipe = await prisma.recipe.create({
         data: {
-          ...recipeData,
+          ...recipeDataWithoutTags,
+          userId: userId,
           steps: {
             create: steps.map((step, index) => ({
               orderNumber: index + 1,
               instruction: step.instruction,
             })),
+          },
+          sections: {
+            create: sections.map((section) => ({
+              name: section.name,
+              ingredients: {
+                create: section.ingredients.map((ingredient) => ({
+                  name: ingredient.ingredient,
+                  quantity: Number(ingredient.amount),
+                  unit: ingredient.unit,
+                })),
+              },
+            })),
+          },
+          tags: {
+            create: tagConnections,
           },
         },
         include: {
@@ -394,6 +366,12 @@ class RecipeRepository extends BaseRepository {
               ingredients: true,
             },
           },
+          tags: {
+            include: {
+              tag: true,
+            },
+          },
+          user: true,
         },
       });
       return recipe;

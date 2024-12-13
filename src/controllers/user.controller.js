@@ -145,4 +145,36 @@ router.get("/:id/following", async (req, res, next) => {
   }
 });
 
+// Toggle favorite recipe
+router.post("/:id/favorites", async (req, res, next) => {
+  try {
+    const { recipeId } = req.body;
+    console.log(recipeId);
+    console.log(req.params.id);
+    const result = await UserService.toggleFavorite(req.params.id, recipeId);
+    res.json({
+      success: true,
+      message: `Recipe ${
+        result.action === "added" ? "added to" : "removed from"
+      } favorites`,
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get user's favorite recipes
+router.get("/:id/favorites", async (req, res, next) => {
+  try {
+    const favorites = await UserService.getUserFavorites(req.params.id);
+    res.json({
+      success: true,
+      data: favorites,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

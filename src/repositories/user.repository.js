@@ -164,6 +164,55 @@ class UserRepository {
       where: { followerId: userId },
     });
   }
+
+  // Toggle favorite recipe
+  async toggleFavorite(userId, recipeId) {
+    const existingFavorite = await this.prisma.userFavorites.findFirst({
+      where: { userId, recipeId },
+    });
+
+    if (existingFavorite) {
+      // Remove from favorites
+      await this.prisma.userFavorites.delete({
+        where: { id: existingFavorite.id },
+      });
+      return { action: "removed" };
+    } else {
+      // Add to favorites
+      await this.prisma.userFavorites.create({
+        data: {
+          userId,
+          recipeId,
+        },
+      });
+      return { action: "added" };
+    }
+  }
+
+  // Get user's favorite recipes
+  async getFavorites(userId) {
+    return this.prisma.userFavorites.findMany({
+      where: { userId },
+      select: {
+        recipe: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            imageUrl: true,
+            createdAt: true,
+            user: {
+              select: {
+                id: true,
+                username: true,
+                profilePicture: true,
+              },
+            },
+          },
+        },
+      },
+    });
+  }
 }
 
 module.exports = new UserRepository();
