@@ -101,6 +101,19 @@ class UserRepository {
 
   // Follow a user
   async follow(followerId, followingId) {
+    // First check if the follow relationship already exists
+    const existingFollow = await this.prisma.userFollows.findFirst({
+      where: {
+        followerId,
+        followingId,
+      },
+    });
+
+    if (existingFollow) {
+      return existingFollow; // Return existing follow relationship
+    }
+
+    // If no existing follow relationship, create a new one
     return this.prisma.userFollows.create({
       data: {
         followerId,
