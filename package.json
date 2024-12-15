@@ -1,7 +1,7 @@
 {
   "scripts": {
     "migrate:deploy": "prisma migrate deploy",
-    "build": "npm run migrate:deploy && tsc",
+    "build": "npm run migrate:deploy",
     "postinstall": "prisma generate && prisma migrate deploy",
     "start": "node server.js",
     "dev": "node --watch server.js",
