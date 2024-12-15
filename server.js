@@ -23,6 +23,10 @@ app.use("/api/users", userController);
 // Global error handler
 app.use(errorHandler);
 
+app.get("/", (req, res) => {
+  res.send("Server is up and running!");
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
