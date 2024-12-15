@@ -96,7 +96,10 @@ router.get("/:id/private", async (req, res, next) => {
 // Follow user
 router.post("/:id/follow", async (req, res, next) => {
   try {
-    await UserService.followUser(req.body.followerId, req.params.id);
+    await UserService.followUser(
+      Number(req.body.followerId),
+      Number(req.params.id)
+    );
     res.json({
       success: true,
       message: "Successfully followed user",
@@ -109,7 +112,10 @@ router.post("/:id/follow", async (req, res, next) => {
 // Unfollow user
 router.post("/:id/unfollow", async (req, res, next) => {
   try {
-    await UserService.unfollowUser(req.body.followerId, req.params.id);
+    await UserService.unfollowUser(
+      Number(req.body.followerId),
+      Number(req.params.id)
+    );
     res.json({
       success: true,
       message: "Successfully unfollowed user",
@@ -135,7 +141,7 @@ router.get("/:id/followers", async (req, res, next) => {
 // Get user's following
 router.get("/:id/following", async (req, res, next) => {
   try {
-    const following = await UserService.getUserFollowing(req.params.id);
+    const following = await UserService.getUserFollowing(Number(req.params.id));
     res.json({
       success: true,
       data: following,
