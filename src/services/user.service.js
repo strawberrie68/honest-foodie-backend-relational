@@ -135,12 +135,12 @@ class UserService {
     }
 
     // Verify user exists
-    const userToFollow = await UserRepository.findById(followingId);
+    const userToFollow = await UserRepository.findById(Number(followingId));
     if (!userToFollow) {
       throw new Error("User to follow not found");
     }
 
-    return UserRepository.follow(followerId, followingId);
+    return UserRepository.follow(Number(followerId), Number(followingId));
   }
 
   // Unfollow a user
