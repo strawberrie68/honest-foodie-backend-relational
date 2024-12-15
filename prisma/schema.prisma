@@ -120,6 +120,8 @@ model UserFollows {
     followingId Int
     following   User     @relation("UserFollowers", fields: [followingId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
+
+    @@unique([followerId, followingId])
 }
 
 model Tag {
