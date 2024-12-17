@@ -16,7 +16,7 @@ find what recipes not only look good but taste good as well.
 - [<kbd><img src="https://cdn-icons-png.flaticon.com/128/527/527589.png" height="12px" /> FRONTEND R E P O </kbd>](https://github.com/strawberrie68/Honest-Foodie-front2)
 - [<kbd> <img src="https://cdn-icons-png.flaticon.com/128/527/527589.png" height="12px" /> OLD BACKEND R E P O </kbd>](https://github.com/strawberrie68/Honest-Foodie-backend)
 - [<kbd> <img src="https://cdn-icons-png.flaticon.com/128/527/527589.png" height="12px" /> NEW BACKEND R E P O </kbd>](https://github.com/strawberrie68/honest-foodie-backend-relational)
-- [<kbd> <img src="https://cdn-icons-png.flaticon.com/128/527/527589.png" height="12px" /> LINK TO PROJECT COMING SOON </kbd>](https://github.com/strawberrie68/Honest-Foodie-backend)
+- [<kbd> <img src="https://cdn-icons-png.flaticon.com/128/527/527589.png" height="12px" /> LINK TO PROJECT </kbd>](https://leafy-marshmallow-52ef5f.netlify.app/)
 
 ## 👩‍💻 How It's Made: 
 
