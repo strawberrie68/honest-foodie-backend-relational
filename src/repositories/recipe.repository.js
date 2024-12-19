@@ -33,6 +33,27 @@ class RecipeRepository extends BaseRepository {
     });
   }
 
+  async createReview(recipeId, userId, reviewData) {
+    return prisma.review.create({
+      data: {
+        recipeId,
+        userId,
+        reviewText: reviewData.reviewText,
+        rating: reviewData.rating,
+        imageUrl: reviewData.imageUrl,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+            profilePicture: true,
+          },
+        },
+      },
+    });
+  }
+
   async searchUserRecipes({
     userId,
     query,

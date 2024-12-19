@@ -20,6 +20,20 @@ class RecipeService {
     );
   }
 
+  async createReview(recipeId, userId, reviewData) {
+    // Validate review data
+    this.validateReviewData(reviewData);
+
+    // Check if recipe exists
+    const recipe = await this.recipeRepository.findRecipeWithDetails(recipeId);
+    if (!recipe) {
+      throw new Error("Recipe not found");
+    }
+
+    // Create the review
+    return this.recipeRepository.createReview(recipeId, userId, reviewData);
+  }
+
   async getRecipeById(id) {
     const recipe = await this.recipeRepository.findRecipeWithDetails(id);
     if (!recipe) {
@@ -64,6 +78,7 @@ class RecipeService {
       sortOrder: validatedSortOrder,
     });
   }
+
   async searchRecipesCategory({
     category,
     page = 1,
@@ -171,6 +186,25 @@ class RecipeService {
       };
     } catch (error) {
       throw new Error(`Failed to fetch recipe feed: ${error.message}`);
+    }
+  }
+
+  validateReviewData(data) {
+    if (
+      !data.reviewText ||
+      typeof data.reviewText !== "string" ||
+      data.reviewText.trim().length === 0
+    ) {
+      throw new Error("Review text is required");
+    }
+
+    if (typeof data.rating !== "number" || data.rating < 1 || data.rating > 5) {
+      throw new Error("Rating must be a number between 1 and 5");
+    }
+
+    // Optional imageUrl validation
+    if (data.imageUrl !== undefined && typeof data.imageUrl !== "string") {
+      throw new Error("Image URL must be a string");
     }
   }
 

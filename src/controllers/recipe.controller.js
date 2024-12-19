@@ -83,6 +83,30 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+// Create a review for a recipe
+router.post("/:id/reviews", async (req, res, next) => {
+  console.log("the body sent for review post", req.body);
+  try {
+    const recipeId = Number(req.params.id);
+    const userId = req.body.userId; // Assuming user ID is provided in the request body
+    const reviewData = {
+      reviewText: req.body.reviewText,
+      rating: Number(req.body.rating),
+      imageUrl: req.body.imageUrl,
+    };
+    console.log(reviewData);
+
+    const review = await recipeService.createReview(
+      recipeId,
+      userId,
+      reviewData
+    );
+    res.status(201).json(review);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Get recipe by ID
 router.get("/:id", async (req, res, next) => {
   try {
