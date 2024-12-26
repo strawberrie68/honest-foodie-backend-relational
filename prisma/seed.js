@@ -26,7 +26,7 @@ async function main() {
       email: "test@example.com",
       password: testUserPassword,
       profilePicture:
-        "https://plus.unsplash.com/premium_photo-1722859221349-26353eae4744?w=32&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZG9nfGVufDB8fDB8fHww",
+        "https://plus.unsplash.com/premium_photo-1722859221349-26353eae4744?w=80&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZG9nfGVufDB8fDB8fHww",
       bio: "This is a test account for trying out the app",
     },
   });
@@ -40,7 +40,7 @@ async function main() {
         email: "john@example.com",
         password: hashedPassword,
         profilePicture:
-          "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=32&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D",
+          "https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=80&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D",
         bio: "Passionate home cook and food enthusiast",
       },
       {
@@ -48,7 +48,7 @@ async function main() {
         email: "jane@example.com",
         password: hashedPassword,
         profilePicture:
-          "https://plus.unsplash.com/premium_photo-1689977807477-a579eda91fa2?w=32&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D",
+          "https://plus.unsplash.com/premium_photo-1689977807477-a579eda91fa2?w=80&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D",
         bio: "Professional chef and recipe creator",
       },
       {
@@ -56,7 +56,7 @@ async function main() {
         email: "master@example.com",
         password: hashedPassword,
         profilePicture:
-          "https://plus.unsplash.com/premium_photo-1670884442192-7b58d513cd55?w=32&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D",
+          "https://plus.unsplash.com/premium_photo-1670884442192-7b58d513cd55?w=80&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fGF2YXRhcnxlbnwwfHwwfHx8MA%3D%3D",
         bio: "Culinary expert with 20 years of experience",
       },
     ],
