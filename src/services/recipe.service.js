@@ -117,7 +117,6 @@ class RecipeService {
     sortBy = "createdAt",
     sortOrder = "desc",
   }) {
-    console.log("query sent to the services", query);
     // Validate pagination parameters
     const validatedPage = Math.max(1, parseInt(page) || 1);
     const validatedLimit = this.validateAndParseLimit(limit);
