@@ -96,7 +96,7 @@ async function main() {
       title: "Chocolate Chip cookie",
       description: "Classic Chocolate Chip Cookies",
       imageUrl:
-        "https://plus.unsplash.com/premium_photo-1670895802275-ed748ced4309?w=220&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y29va2llc3xlbnwwfHwwfHx8MA%3D%3D",
+        "https://plus.unsplash.com/premium_photo-1670895802275-ed748ced4309?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y29va2llc3xlbnwwfHwwfHx8MA%3D%3D",
       preparationTime: 20,
       cookingTime: 12,
       servings: 24,
@@ -163,7 +163,7 @@ async function main() {
       title: "Tofu Stir-fry",
       description: "Veggie Stir Fry",
       imageUrl:
-        "https://plus.unsplash.com/premium_photo-1664475934279-2631a25c42ce?w=220&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3RpcmZyeXxlbnwwfHwwfHx8MA%3D%3D",
+        "https://plus.unsplash.com/premium_photo-1664475934279-2631a25c42ce?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3RpcmZyeXxlbnwwfHwwfHx8MA%3D%3D",
       preparationTime: 15,
       cookingTime: 20,
       servings: 4,
@@ -219,7 +219,7 @@ async function main() {
       title: "Egg Toast",
       description: "A quick and healthy breakfast with avocado on toast.",
       imageUrl:
-        "https://images.unsplash.com/photo-1617054240991-b0ffce6600da?w=220&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZjYWRvJTIwdG9hc3R8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1617054240991-b0ffce6600da?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZjYWRvJTIwdG9hc3R8ZW58MHx8MHx8fDA%3D",
       preparationTime: 5,
       cookingTime: 2,
       servings: 1,
@@ -258,7 +258,7 @@ async function main() {
       title: "Hot Chocolate",
       description: "A cozy and rich seasonal drink.",
       imageUrl:
-        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=220&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG90JTIwY2hvY29sYXRlfGVufDB8fDB8fHww",
+        "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG90JTIwY2hvY29sYXRlfGVufDB8fDB8fHww",
       preparationTime: 5,
       cookingTime: 10,
       servings: 2,
@@ -298,7 +298,7 @@ async function main() {
       title: "Apple Cider",
       description: "Warm apple cider with seasonal spices.",
       imageUrl:
-        "https://images.unsplash.com/photo-1575549592564-4d50aa43b3af?w=220&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGUlMjBjaWRlcnxlbnwwfHwwfHx8MA%3D%3D",
+        "https://images.unsplash.com/photo-1575549592564-4d50aa43b3af?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGUlMjBjaWRlcnxlbnwwfHwwfHx8MA%3D%3D",
       preparationTime: 10,
       cookingTime: 15,
       servings: 4,
@@ -336,7 +336,7 @@ async function main() {
       title: "Greek Salad",
       description: "A refreshing Mediterranean salad.",
       imageUrl:
-        "https://images.unsplash.com/photo-1570197571499-166b36435e9f?w=220&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2FsYWR8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1570197571499-166b36435e9f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2FsYWR8ZW58MHx8MHx8fDA%3D",
       preparationTime: 10,
       cookingTime: 0,
       servings: 4,
